@@ -13,9 +13,15 @@ unsigned int count_lines(const char *filename);
 int* read_file_to_array(const char* filename, int size);
 int convert_array_to_int(char* number, int size);
 
-int main()
+int main(int argc, char* argv[])
 {
-    const char* filename = "data";
+    if (argc < 2)
+    {
+        printf("Il y a %d arguments\n", argc);
+        printf("Il manque des arguments\n");
+        return 1;
+    }
+    const char* filename = argv[1];
     unsigned int line_count = count_lines(filename);
     printf("Nombre de lignes : %d\n", line_count);
 
