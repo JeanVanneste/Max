@@ -1,1 +1,0 @@
-/usr/bin/cc  -Wall -Werror -std=c11 -g   CMakeFiles/Max.dir/src/Main.c.o  -o Max 

@@ -1,3 +1,0 @@
-/home/jean/programmation/os/Max/CMakeFiles/rebuild_cache.dir
-/home/jean/programmation/os/Max/CMakeFiles/Max.dir
-/home/jean/programmation/os/Max/CMakeFiles/edit_cache.dir
