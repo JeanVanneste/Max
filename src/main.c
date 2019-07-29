@@ -31,12 +31,7 @@ int main(int argc, char* argv[])
     {
         printf("%d\n", data[i]);
     }   
-
-    /*
-    char *data = "285697";
-    int number = convert_array_to_int(data, 6);
-    printf("%d\n", number);
-     */
+    
     int max = 0; 
 
     for (int i = 0; i < line_count; i++)
