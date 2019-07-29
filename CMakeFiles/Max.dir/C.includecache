@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jean/programmation/os/Max/src/main.c
+sys/types.h
+-
+sys/stat.h
+-
+unistd.h
+-
+fcntl.h
+-
+stdio.h
+-
+stdlib.h
+-
+

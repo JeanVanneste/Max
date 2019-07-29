@@ -1,0 +1,16 @@
+for (int i = 0; i < size; i++)
+{
+    char number[NUM_MAX_LENGTH]; 
+    for (int k = 0; k < NUM_MAX_LENGTH + 1; k++)
+    {
+        if (*buffer == '\n')
+        {
+            data[i] = convert_array_to_int(number, k + 1);
+            break;
+        }
+        else
+        {
+            number[k] = (int)*buffer;
+        }
+    }
+}
