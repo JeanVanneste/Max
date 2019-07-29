@@ -27,18 +27,16 @@ int main(int argc, char* argv[])
 
     
     int *data = read_file_to_array(filename, line_count);
-    for (int i = 0; i < line_count; i++)
-    {
-        printf("%d\n", data[i]);
-    }   
-    
-    int max = 0; 
 
+    int max = data[0];
+    int min = data[0];
     for (int i = 0; i < line_count; i++)
     {
         if (data[i] > max) { max = data[i]; }
+        if (data[i] < min) { min = data[i]; }
     }
-    printf("%d\n", max);
+    printf("Nombre le plus petit : %d\n", min);
+    printf("Nombre le plus grand : %d\n", max);
 }
 
 unsigned int count_lines(const char* filename)
