@@ -37,6 +37,8 @@ int main(int argc, char* argv[])
     }
     printf("Nombre le plus petit : %d\n", min);
     printf("Nombre le plus grand : %d\n", max);
+
+    free(data);
 }
 
 unsigned int count_lines(const char* filename)
