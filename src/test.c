@@ -28,7 +28,11 @@ int main()
     
     for (i = 0; i < threads_nb - 1; i++)
     {
-        ret = pthread_create(&(tid[i]), NULL, &thread, NULL);
+        thread_args[i].start_pos = (datasize / threads_nb) * i;
+        thread_args[i].end_pos = (datasize / threads_nb) * (i + 1) - 1;
+        thread_args[i].max = 0;
+
+        ret = pthread_create(&(tid[i]), NULL, &thread, &(thread_args[i]));
         if (ret == 0)
             printf("Thread %d created\n", i);
         else if (ret == EAGAIN)
@@ -52,7 +56,12 @@ int main()
 
     for (i = 0; i < threads_nb; i++)
     {
+        thread_args[i].start_pos = (datasize / threads_nb) * (threads_nb - 1);
+        thread_args[i].end_pos = datasize - 1;
+        thread_args[i].max = 0;
+        
         ret = pthread_join(tid[i], NULL);
+        
         if (ret != 0)
         {
             printf("Error during join of thread %d: ", i);
@@ -63,10 +72,11 @@ int main()
             return -1;
         }
         else
-            printf("Thread %d finished succesfully\n", i);
+            printf("Thread %d joined succesfully\n", i);
         
     }
-    printf("All threads closed succefully\n");
+
+    printf("All threads were closed succefully\n");
 
     return 0;
 }
