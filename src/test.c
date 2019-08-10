@@ -15,10 +15,18 @@ int main()
 {
     int threads_nb = 3;
 
-    unsigned int datasize = 10;
+    int datasize = 10;
+
+    int i = 0;
+
+    int* data = malloc (datasize * sizeof(int));
+
+    int data_cp[] = {10, 8, 5, 20, 3, 2, 14, 15, 4, 22};
+
+    for (i = 0; i < datasize; i++)
+        data[i] = data_cp[i];
 
     int ret = 0;
-    int i = 0;
 
     pthread_t tid[threads_nb];
 
@@ -57,6 +65,11 @@ int main()
         printf("Error with last thread creation");
         return -1;
     }
+    else
+    {
+        printf("Thread %d created\n", threads_nb - 1);
+    }
+    
 
     for (i = 0; i < threads_nb; i++)
     {       
