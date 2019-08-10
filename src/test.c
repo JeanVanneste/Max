@@ -4,6 +4,7 @@
 #include <errno.h>
 
 struct thread_param {
+    int* data;
     int start_pos;
     int end_pos;
     int max;
@@ -36,6 +37,7 @@ int main()
     
     for (i = 0; i < threads_nb - 1; i++)
     {
+        thread_args[i].data = data;
         thread_args[i].start_pos = (datasize / threads_nb) * i;
         thread_args[i].end_pos = (datasize / threads_nb) * (i + 1) - 1;
         thread_args[i].max = 0;
@@ -55,6 +57,7 @@ int main()
         }
     }
 
+    thread_args[i].data = data;
     thread_args[i].start_pos = (datasize / threads_nb) * (threads_nb - 1);
     thread_args[i].end_pos = datasize - 1;
     thread_args[i].max = 0;
@@ -98,8 +101,13 @@ void* local_max(void* arg)
 {
     struct thread_param* tp = (struct thread_param*) arg;
 
-    printf("Start position = %d\n", tp->start_pos);
-    printf("End position = %d\n", tp->end_pos);
+    for (int i = tp->start_pos; i <= tp->end_pos; i++)
+    {
+        if (tp->data[i] > tp->max)
+            tp->max = tp->data[i];
+    }
+
+    printf("Local max = %d\n", tp->max);
 
     pthread_exit(NULL);
 }
