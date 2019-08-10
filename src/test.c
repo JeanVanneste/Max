@@ -24,6 +24,8 @@ int main()
 
     int data_cp[] = {10, 8, 5, 20, 3, 2, 14, 15, 4, 22};
 
+    int global_max = data[0];
+
     for (i = 0; i < datasize; i++)
         data[i] = data_cp[i];
 
@@ -93,6 +95,14 @@ int main()
     }
 
     printf("All threads were closed succefully\n");
+
+    for (i = 0; i < threads_nb; i++)
+    {
+        if (thread_args[i].max > global_max)
+            global_max  = thread_args[i].max;
+    }
+
+    printf("Max number is %d.\n", global_max);
 
     return 0;
 }
