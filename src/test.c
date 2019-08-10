@@ -9,11 +9,11 @@ struct thread_param {
     int max;
 };
 
-void* thread();
+void* local_max();
 
 int main()
 {
-    int threads_nb = 2;
+    int threads_nb = 3;
 
     unsigned int datasize = 10;
 
@@ -32,7 +32,7 @@ int main()
         thread_args[i].end_pos = (datasize / threads_nb) * (i + 1) - 1;
         thread_args[i].max = 0;
 
-        ret = pthread_create(&(tid[i]), NULL, &thread, &(thread_args[i]));
+        ret = pthread_create(&(tid[i]), NULL, &local_max, &(thread_args[i]));
         if (ret == 0)
             printf("Thread %d created\n", i);
         else if (ret == EAGAIN)
@@ -47,7 +47,11 @@ int main()
         }
     }
 
-    ret = pthread_create(&(tid[threads_nb - 1]), NULL, &thread, NULL);
+    thread_args[i].start_pos = (datasize / threads_nb) * (threads_nb - 1);
+    thread_args[i].end_pos = datasize - 1;
+    thread_args[i].max = 0;
+
+    ret = pthread_create(&(tid[threads_nb - 1]), NULL, &local_max, &(thread_args[threads_nb - 1]));
     if (ret != 0)
     {
         printf("Error with last thread creation");
@@ -55,11 +59,7 @@ int main()
     }
 
     for (i = 0; i < threads_nb; i++)
-    {
-        thread_args[i].start_pos = (datasize / threads_nb) * (threads_nb - 1);
-        thread_args[i].end_pos = datasize - 1;
-        thread_args[i].max = 0;
-        
+    {       
         ret = pthread_join(tid[i], NULL);
         
         if (ret != 0)
@@ -81,12 +81,12 @@ int main()
     return 0;
 }
 
-void* thread()
+void* local_max(void* arg)
 {
-    int c = 0;
-    for (int i = 0; i < 1000000; i++)
-        c++;
-    printf("End of thread\n");
+    struct thread_param* tp = (struct thread_param*) arg;
+
+    printf("Start position = %d\n", tp->start_pos);
+    printf("End position = %d\n", tp->end_pos);
 
     pthread_exit(NULL);
 }
