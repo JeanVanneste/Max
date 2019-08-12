@@ -1,6 +1,6 @@
 .vscode
 tests/
-CMakeFiles
+CMakeFiles/
 
 t.sh
 
@@ -11,3 +11,6 @@ Threads
 core
 
 Max
+
+cmake_install.cmake_install
+CMakeCache.txt
