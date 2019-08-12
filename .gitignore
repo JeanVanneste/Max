@@ -1,5 +1,8 @@
 .vscode
 tests/
+CMakeFiles
+
+t.sh
 
 data
 result
