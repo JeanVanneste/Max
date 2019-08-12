@@ -112,9 +112,7 @@ void write_to_file(int max, const char* filename)
     if ((file = open(filename, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IROTH)) != -1)
     {
         char* max_str = convert_int_to_array(max);
-        write(STDOUT_FILENO, max_str, NUM_MAX_LENGTH);
         write(file, max_str, NUM_MAX_LENGTH);
-        write(STDOUT_FILENO, "\n", 1);
         write(file, "\n", 1);
         free(max_str);
     }
