@@ -42,7 +42,7 @@ int find_global_max(int* data, int datasize, int thread_nb)
         }
         else if (ret != 0)
         {
-            fprintf(stderr, "Error during creation of thread %d", i);
+            fprintf(stderr, "Error during creation of thread %d\n", i);
             return -1;
         }            
     }
