@@ -66,7 +66,7 @@ int find_global_max(int* data, int datasize, int thread_nb)
         return -1;
     }
     else if (ret == 0)
-        printf("All thread created successfully\n");
+        printf("All thread were created successfully\n");
     else
     { 
         fprintf(stderr, "Unknown error\n");
