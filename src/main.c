@@ -18,20 +18,24 @@ char* convert_int_to_array(int num);
 
 int main(int argc, char* argv[])
 {
+    // Veriying that the user has provided 3 arguments
     if (argc < 2)
     {
         printf("Il y a %d arguments\n", argc);
         printf("Il manque des arguments\n");
         return 1;
     }
+    // Parsing arguments
     const char* filename = argv[1];
     int thread_nb = atoi(argv[2]);
+    // Counting lines on the source file to create a array of the correct size
     unsigned int line_count = count_lines(filename);
     printf("Nombre de lignes : %d\n", line_count);
 
-    
+    // Writing data into an array
     int *data = read_file_to_array(filename, line_count);
 
+    // Find the global max in the list with error detection
     int max = find_global_max(data, line_count, thread_nb);
     if (max == -1)
     {
@@ -43,11 +47,13 @@ int main(int argc, char* argv[])
         fprintf(stderr, "Error during join of threads\n");
         return -1;
     }
+    // If maxium is found, it is written in the result file
     write_to_file(max, argv[3]);
 
     free(data);
 }
 
+// Read all the character of a file and count the number of newline character (\n)
 unsigned int count_lines(const char* filename)
 {
     int file;
@@ -67,6 +73,7 @@ unsigned int count_lines(const char* filename)
     return line_count;
 }
 
+// Store the numbers from inside a file in an array
 int* read_file_to_array(const char* filename, int size)
 {
     int *data = malloc(size * sizeof(int));
@@ -98,6 +105,7 @@ int* read_file_to_array(const char* filename, int size)
     return data;
 }
 
+// write a number to a file
 void write_to_file(int max, const char* filename)
 {
     int file;
@@ -112,9 +120,10 @@ void write_to_file(int max, const char* filename)
     }
     else
     {
-        printf("Can't open destination file, check permissions\n");
+        fprintf(stderr, "Can't open destination file, check permissions\n");
     }
 }
+
 
 int convert_array_to_int(char* number, int size)
 {
