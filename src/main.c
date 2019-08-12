@@ -6,6 +6,8 @@
 
 #include <sys/stat.h>
 
+#include "thread.h"
+
 #define NUM_MAX_LENGTH 6
 
 unsigned int count_lines(const char *filename);
@@ -23,18 +25,24 @@ int main(int argc, char* argv[])
         return 1;
     }
     const char* filename = argv[1];
+    int thread_nb = atoi(argv[2]);
     unsigned int line_count = count_lines(filename);
     printf("Nombre de lignes : %d\n", line_count);
 
     
     int *data = read_file_to_array(filename, line_count);
 
-    int max = data[0];
-    for (int i = 0; i < line_count; i++)
+    int max = find_global_max(data, line_count, thread_nb);
+    if (max == -1)
     {
-        if (data[i] > max) { max = data[i]; }
+        fprintf(stderr, "Error during creation of thread\n");
+        return -1;
     }
-
+    else if (max == -2)
+    {
+        fprintf(stderr, "Error during join of threads\n");
+        return -1;
+    }
     write_to_file(max, argv[3]);
 
     free(data);

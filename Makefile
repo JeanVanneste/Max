@@ -150,6 +150,33 @@ src/main.c.s:
 	$(MAKE) -f CMakeFiles/Max.dir/build.make CMakeFiles/Max.dir/src/main.c.s
 .PHONY : src/main.c.s
 
+src/thread.o: src/thread.c.o
+
+.PHONY : src/thread.o
+
+# target to build an object file
+src/thread.c.o:
+	$(MAKE) -f CMakeFiles/Max.dir/build.make CMakeFiles/Max.dir/src/thread.c.o
+.PHONY : src/thread.c.o
+
+src/thread.i: src/thread.c.i
+
+.PHONY : src/thread.i
+
+# target to preprocess a source file
+src/thread.c.i:
+	$(MAKE) -f CMakeFiles/Max.dir/build.make CMakeFiles/Max.dir/src/thread.c.i
+.PHONY : src/thread.c.i
+
+src/thread.s: src/thread.c.s
+
+.PHONY : src/thread.s
+
+# target to generate assembly for a file
+src/thread.c.s:
+	$(MAKE) -f CMakeFiles/Max.dir/build.make CMakeFiles/Max.dir/src/thread.c.s
+.PHONY : src/thread.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,6 +189,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/thread.o"
+	@echo "... src/thread.i"
+	@echo "... src/thread.s"
 .PHONY : help
 
 
