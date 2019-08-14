@@ -1,3 +1,4 @@
+#define _GNU_SOURCE only
 #include <unistd.h>
 #include <fcntl.h>
 
@@ -6,12 +7,14 @@
 
 #include <sys/stat.h>
 
+#include <errno.h>
+
 #include "thread.h"
 
 #define NUM_MAX_LENGTH 6
 
 unsigned int count_lines(const char *filename);
-int* read_file_to_array(const char* filename, int size);
+int* read_file_to_array(const char* filename, unsigned int* line_count);
 void write_to_file(int max, const char* filename);
 int convert_array_to_int(char* number, int size);
 char* convert_int_to_array(int num);
@@ -28,12 +31,12 @@ int main(int argc, char* argv[])
     // Parsing arguments
     const char* filename = argv[1];
     int thread_nb = atoi(argv[2]);
-    // Counting lines on the source file to create a array of the correct size
-    unsigned int line_count = count_lines(filename);
-    printf("Nombre de lignes : %d\n", line_count);
 
     // Writing data into an array
-    int *data = read_file_to_array(filename, line_count);
+    unsigned int line_count = 0;
+    int *data = read_file_to_array(filename, &line_count);
+    printf("Nombre de lignes : %d\n", line_count);
+
 
     // Find the global max in the list with error detection
     int max = find_global_max(data, line_count, thread_nb);
@@ -54,42 +57,36 @@ int main(int argc, char* argv[])
 }
 
 // Read all the character of a file and count the number of newline character (\n)
-unsigned int count_lines(const char* filename)
+int* read_file_to_array(const char* filename, unsigned int* line_count)
 {
     int file;
-    unsigned int line_count = 0;
-    if ((file = open(filename, O_RDONLY)) != -1)
-    {
-        char buffer[1];
-        ssize_t s;
-        while ((s = read(file, buffer, 1)) != 0)
-        {
-            if (*buffer == '\n')
-                line_count++;
-        }
-        close(file);
-    }
+    unsigned int size = 1;
+    int* data = calloc(size, sizeof(int));
 
-    return line_count;
-}
-
-// Store the numbers from inside a file in an array
-int* read_file_to_array(const char* filename, int size)
-{
-    int *data = malloc(size * sizeof(int));
-    int file;
+    int i = 0; // itérateur des nombres
+    int k = 0; // itérateur des digits
+    
     if ((file = open(filename, O_RDONLY)) != -1)
     {
         char buffer[1];
         ssize_t s;
         char number[NUM_MAX_LENGTH];
-        int i = 0;
-        int k = 0;
-        while ((s = read(file, buffer, 1)) != 0)
+        while ((s = read(file, buffer, 1)) != '\0')
         {
             if (*buffer == '\n')
             {
+                (*line_count)++;
                 data[i] = convert_array_to_int(number, k);
+                if (i == size)
+                {
+                    data = reallocarray(data, size*2, sizeof(int));
+                    size *= 2;
+                    if (errno == ENOMEM)
+                    {
+                        fprintf(stderr, "ERROR: memory overflow\n");
+                        return NULL;
+                    }
+                }
                 i++;
                 k = 0;
             }
@@ -99,8 +96,10 @@ int* read_file_to_array(const char* filename, int size)
                 k++;
             }
         }
+        close(file);
     }
-    close(file);
+
+    data = realloc(data, *line_count * sizeof(int));
 
     return data;
 }
