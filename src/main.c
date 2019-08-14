@@ -99,7 +99,7 @@ int* read_file_to_array(const char* filename, unsigned int* line_count)
         close(file);
     }
 
-    //data = realloc(data, *line_count);
+    data = realloc(data, *line_count * sizeof(int));
 
     return data;
 }
