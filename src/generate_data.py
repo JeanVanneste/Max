@@ -5,6 +5,11 @@ import random
 filename = 'data'
 
 data = open(filename, 'w')
-for number in range(1000):
-    data.write(str(random.randint(1, 1000000)) + '\n')
+max = 0
+for number in range(10000):
+    number = random.randint(1, 100000)
+    data.write(str(number) + '\n')
+    if number > max:
+        max = number
 print("Nombres générés dans " + filename + "\n")
+print("Nombre max = " + str(max))

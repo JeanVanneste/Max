@@ -1,3 +1,4 @@
+#define _GNU_SOURCE only
 #include <unistd.h>
 #include <fcntl.h>
 
@@ -11,7 +12,6 @@
 #include "thread.h"
 
 #define NUM_MAX_LENGTH 6
-#define _GNU_SOURCE only
 
 unsigned int count_lines(const char *filename);
 int* read_file_to_array(const char* filename, int* line_count);
@@ -75,12 +75,17 @@ int* read_file_to_array(const char* filename, int* line_count)
         {
             if (*buffer == '\n')
             {
-                line_count++;
+                (*line_count)++;
                 data[i] = convert_array_to_int(number, k);
                 if (i == size)
                 {
                     data = reallocarray(data, size*2, sizeof(int));
                     size *= 2;
+                    if (errno == ENOMEM)
+                    {
+                        fprintf(stderr, "ERROR: memory overflow\n");
+                        return NULL;
+                    }
                 }
                 i++;
                 k = 0;
@@ -93,7 +98,8 @@ int* read_file_to_array(const char* filename, int* line_count)
         }
         close(file);
     }
-    data = realloc(data, line_count);
+
+    data = realloc(data, *line_count);
 
     return data;
 }
