@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
     // Writing data into an array
     unsigned int line_count = 0;
     int *data = read_file_to_array(filename, &line_count);
-    if (data = NULL)
+    if (data == NULL)
     {
         fprintf(stderr, "ERROR : Memory overflow during file read\n");
         return -1;
