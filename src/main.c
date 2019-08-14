@@ -104,40 +104,6 @@ int* read_file_to_array(const char* filename, unsigned int* line_count)
     return data;
 }
 
-
-/*Store the numbers from inside a file in an array
-int* read_file_to_array(const char* filename, int size)
-{
-    int *data = malloc(size * sizeof(int));
-    int file;
-    if ((file = open(filename, O_RDONLY)) != -1)
-    {
-        char buffer[1];
-        ssize_t s;
-        char number[NUM_MAX_LENGTH];
-        int i = 0;
-        int k = 0;
-        while ((s = read(file, buffer, 1)) != 0)
-        {
-            if (*buffer == '\n')
-            {
-                data[i] = convert_array_to_int(number, k);
-                i++;
-                k = 0;
-            }
-            else
-            {
-                number[k] = (int)*buffer;
-                k++;
-            }
-        }
-    }
-    close(file);
-
-    return data;
-}
-*/
-
 // write a number to a file
 void write_to_file(int max, const char* filename)
 {
