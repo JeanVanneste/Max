@@ -14,7 +14,7 @@
 #define NUM_MAX_LENGTH 6
 
 unsigned int count_lines(const char *filename);
-int* read_file_to_array(const char* filename, int* line_count);
+int* read_file_to_array(const char* filename, unsigned int* line_count);
 void write_to_file(int max, const char* filename);
 int convert_array_to_int(char* number, int size);
 char* convert_int_to_array(int num);
@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
     int thread_nb = atoi(argv[2]);
 
     // Writing data into an array
-    int line_count = 0;
+    unsigned int line_count = 0;
     int *data = read_file_to_array(filename, &line_count);
     printf("Nombre de lignes : %d\n", line_count);
 
@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
 }
 
 // Read all the character of a file and count the number of newline character (\n)
-int* read_file_to_array(const char* filename, int* line_count)
+int* read_file_to_array(const char* filename, unsigned int* line_count)
 {
     int file;
     unsigned int size = 1;
