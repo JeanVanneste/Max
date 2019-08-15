@@ -56,7 +56,8 @@ int main(int argc, char* argv[])
         return -1;
     }
     // If maxium is found, it is written in the result file
-    if(write_to_file(max, argv[3]) == 0)
+    int ret = write_to_file(max, argv[3]);
+    if(ret == 0)
     {
         printf("Result written to file\n");
     }
@@ -117,7 +118,7 @@ int* read_file_to_array(const char* filename, unsigned int* line_count)
 int write_to_file(int max, const char* filename)
 {
     int ret = unlink(filename);
-    if (ret == -1)
+    if (ret == -1 && errno != ENOENT)
     {
         fprintf(stderr, "Can't open destination file, check permissions\n");
         return -1;
