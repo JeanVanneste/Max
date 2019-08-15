@@ -6,14 +6,6 @@
 
 #include "thread.h"
 
-struct thread_max_st 
-{
-    int* data;
-    int start_pos;
-    int end_pos;
-    int max;
-};
-
 int find_global_max(int* data, int datasize, int thread_nb)
 {
     // We set global_max to be the first element of data

@@ -1,5 +1,13 @@
 #pragma once 
 
+struct thread_max_st 
+{
+    int* data;
+    int start_pos;
+    int end_pos;
+    int max;
+};
+
 void* local_max(void* arg); // find the maximum number between 2 position in a list
 
 
