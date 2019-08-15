@@ -6,8 +6,8 @@ filename = 'data'
 
 data = open(filename, 'w')
 max = 0
-for number in range(10):
-    number = random.randint(1, 100)
+for number in range(10000):
+    number = random.randint(1, 999999)
     data.write(str(number) + '\n')
     if number > max:
         max = number
