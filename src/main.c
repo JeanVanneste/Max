@@ -79,8 +79,8 @@ int* read_file_to_array(const char* filename, unsigned int* line_count)
         exit(-1);
     }
 
-    int i = 0; // itérateur des nombres
-    int k = 0; // itérateur des digits
+    unsigned int i = 0; // itérateur des nombres
+    unsigned int k = 0; // itérateur des digits
     
     if ((file = open(filename, O_RDONLY)) != -1)
     {
