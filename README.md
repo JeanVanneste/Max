@@ -35,8 +35,10 @@ Required :
 - POSIX thread library
 - python3
 
-The script build.sh will generate a list of number in the *data* file and will generate a debug Makefile to allow you to use a debugger.
+The script debug.sh will generate a debug Makefile to allow you to use a debugger.
 
 The script release.sh can be use to generate the Makefile for an optimized executable.
+
+The script test.sh will generate a list of number in *data*, launch the program, log the error in error.log and if the process succed, will print the file *result* into the terminal.
 
 The script used to generate the data file is located inside the src folder and is called generate_data.py.
