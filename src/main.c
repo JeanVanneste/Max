@@ -1,4 +1,5 @@
 #define _GNU_SOURCE only
+
 #include <unistd.h>
 #include <fcntl.h>
 
@@ -128,9 +129,14 @@ int write_to_file(int max, const char* filename)
     {
         int size = 0;
         char* max_str = convert_int_to_array(max, &size);
-        write(file, max_str, size);
-        write(file, "\n", 1);
+        ret = write(file, max_str, size);
+        ret = write(file, "\n", 1);
         free(max_str);
+        if (ret == -1)
+        {
+            fprintf(stderr, "Cannot write to result file\n");
+            return -1;
+        }
         return 0;
     }
     else
