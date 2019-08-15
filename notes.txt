@@ -1,0 +1,1 @@
+Utilisation d'un tableau plutôt que d'un liste chainé pour avoir un accès direct à chaque case du tableau => facilite l'utilisation de threads.

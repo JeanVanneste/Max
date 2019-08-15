@@ -73,6 +73,11 @@ int* read_file_to_array(const char* filename, unsigned int* line_count)
     int file;
     unsigned int size = 1;
     int* data = calloc(size, sizeof(int));
+    if (data == NULL)
+    {
+        fprintf(stderr, "Unsufficient memory\n");
+        exit(-1);
+    }
 
     int i = 0; // itérateur des nombres
     int k = 0; // itérateur des digits
@@ -91,6 +96,11 @@ int* read_file_to_array(const char* filename, unsigned int* line_count)
                 if (i == size)
                 {
                     data = reallocarray(data, size*2, sizeof(int));
+                    if (data == NULL)
+                    {
+                        fprintf(stderr, "Unsufficient memory\n");
+                        exit(-1);
+                    }
                     size *= 2;
                     if (errno == ENOMEM)
                     {
@@ -169,6 +179,11 @@ char* convert_int_to_array(int num, int* size)
     }
 
     char *array = calloc(*size, sizeof(char));
+    if (array == NULL)
+    {
+        fprintf(stderr, "Unsufficient memory\n");
+        exit(-1);
+    }
 
     for (int i = *size - 1; i >= 0; i--)
     {
