@@ -65,6 +65,8 @@ int main(int argc, char* argv[])
     else
         return -1;
     free(data);
+
+    return 0;
 }
 
 // Read all the character of a file and count the number of newline character (\n)

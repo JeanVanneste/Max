@@ -4,4 +4,8 @@ src/generate_data.py
 
 ./Max data 4 result 2> error.log
 
-cat result
+if [ $? -ne 0 ]; then
+    echo "Error: check error.log"
+else
+    cat result
+fi
