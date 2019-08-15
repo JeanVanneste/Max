@@ -15,7 +15,7 @@
 
 unsigned int count_lines(const char *filename);
 int* read_file_to_array(const char* filename, unsigned int* line_count);
-void write_to_file(int max, const char* filename);
+int write_to_file(int max, const char* filename);
 int convert_array_to_int(char* number, int size);
 char* convert_int_to_array(int num, int* size);
 
@@ -56,8 +56,8 @@ int main(int argc, char* argv[])
         return -1;
     }
     // If maxium is found, it is written in the result file
-    write_to_file(max, argv[3]);
-
+    if(write_to_file(max, argv[3]) == 0)
+        printf("Result written to file\n");
     free(data);
 }
 
@@ -110,8 +110,14 @@ int* read_file_to_array(const char* filename, unsigned int* line_count)
 }
 
 // write a number to a file
-void write_to_file(int max, const char* filename)
+int write_to_file(int max, const char* filename)
 {
+    int ret = unlink(filename);
+    if (ret == -1)
+    {
+        fprintf(stderr, "Can't open destination file, check permissions\n");
+        return -1;
+    }
     int file;
     if ((file = open(filename, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IROTH)) != -1)
     {
@@ -120,10 +126,12 @@ void write_to_file(int max, const char* filename)
         write(file, max_str, size);
         write(file, "\n", 1);
         free(max_str);
+        return 0;
     }
     else
     {
         fprintf(stderr, "Can't open destination file, check permissions\n");
+        return -1;
     }
 }
 
