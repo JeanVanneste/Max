@@ -12,7 +12,7 @@
 
 #include "thread.h"
 
-#define NUM_MAX_LENGTH 6
+#define NUM_MAX_LENGTH 9
 
 unsigned int count_lines(const char *filename);
 int* read_file_to_array(const char* filename, unsigned int* line_count);
@@ -65,8 +65,6 @@ int main(int argc, char* argv[])
     else
         return -1;
     free(data);
-
-    return 0;
 }
 
 // Read all the character of a file and count the number of newline character (\n)
