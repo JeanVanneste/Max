@@ -57,7 +57,11 @@ int main(int argc, char* argv[])
     }
     // If maxium is found, it is written in the result file
     if(write_to_file(max, argv[3]) == 0)
+    {
         printf("Result written to file\n");
+    }
+    else
+        return -1;
     free(data);
 }
 
