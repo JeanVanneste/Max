@@ -12,7 +12,7 @@
 
 #include "thread.h"
 
-#define NUM_MAX_LENGTH 10
+#define NUM_MAX_LENGTH 6
 
 unsigned int count_lines(const char *filename);
 int* read_file_to_array(const char* filename, unsigned int* line_count);
